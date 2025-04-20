@@ -11,6 +11,8 @@ export const ROUTES = {
   SUBJECT_ASSIGNMENT: '/dashboard/supervisor/subject-assignment',
   SEMESTER: '/dashboard/supervisor/semester',
   DEPARTMENT_FACULTY: '/dashboard/department-faculty',
+  CURRENT_SCHOLARSHIP: '/dashboard/scholarship/current',
+  PREVIOUS_SCHOLARSHIPS: '/dashboard/scholarship/previous',
 } as const;
 
 // as const tells TypeScript to:

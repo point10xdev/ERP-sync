@@ -7,46 +7,48 @@ export const PreviousScholarships = () => {
   const [scholarships, setScholarships] = useState<Scholarship[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const isPreviousScholarship = (sch: Scholarship): boolean => {
-    const now = new Date();
-    const currentMonthIndex = now.getMonth(); // 0-based
-    const currentYear = now.getFullYear();
-
-    const schDate = new Date(`${sch.month} 1, ${sch.year}`);
-    const schMonthIndex = schDate.getMonth();
-    const schYear = schDate.getFullYear();
-
-    return (
-      sch.status === "paid" ||
-      sch.status === "rejected" ||
-      schYear < currentYear ||
-      (schYear === currentYear && schMonthIndex < currentMonthIndex)
-    );
-  };
-
   useEffect(() => {
+    // In a real app, we would fetch scholarship data for the current user
+    // For now, we'll use mock data
     const mockScholarships: Scholarship[] = [
       {
-        id: "1",
-        name: "Merit Scholarship 2022-23",
-        amount: 45000,
-        status: "Completed",
-        startDate: new Date("2022-09-01"),
-        endDate: new Date("2023-06-30"),
-        studentId: user?.username || "",
-        courseName: user?.course || "Unknown",
-        department: user?.department || "Unknown",
+        id: "sch-128",
+        name: "March 2024 Scholarship",
+        scholar: user?.username || "unknown_student",
+        month: "March",
+        year: "2024",
+        days: 20,
+        total_pay: 20000,
+        total_pay_per_day: 1000,
+        basic: 15000,
+        hra: 5000,
+        status: "paid",
       },
       {
-        id: "2",
-        name: "Merit Scholarship 2021-22",
-        amount: 40000,
-        status: "Completed",
-        startDate: new Date("2021-09-01"),
-        endDate: new Date("2022-06-30"),
-        studentId: user?.username || "",
-        courseName: user?.course || "Unknown",
-        department: user?.department || "Unknown",
+        id: "sch-127",
+        name: "January 2024 Scholarship",
+        scholar: user?.username || "unknown_student",
+        month: "January",
+        year: "2024",
+        days: 18,
+        total_pay: 18000,
+        total_pay_per_day: 1000,
+        basic: 13000,
+        hra: 5000,
+        status: "paid",
+      },
+      {
+        id: "sch-126",
+        name: "February 2024 Grant",
+        scholar: user?.username || "unknown_student",
+        month: "February",
+        year: "2024",
+        days: 22,
+        total_pay: 22000,
+        total_pay_per_day: 1000,
+        basic: 17000,
+        hra: 5000,
+        status: "rejected",
       },
     ];
 
@@ -99,18 +101,19 @@ export const PreviousScholarships = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-3">
               <div>
                 <h4 className="text-xs text-gray-500 mb-1">Amount</h4>
-                <p className="font-medium">
-                  ₹{sch.total_pay?.toLocaleString() || 0}
-                </p>
+                <p className="font-medium">₹{sch.total_pay.toLocaleString()}</p>
               </div>
               <div>
                 <h4 className="text-xs text-gray-500 mb-1">Duration</h4>
-                <p>{sch.days ? `${sch.days} days` : "N/A"}</p>
+                <p>
+                  {sch.days} days in {sch.month}, {sch.year}
+                </p>
               </div>
               <div>
                 <h4 className="text-xs text-gray-500 mb-1">Details</h4>
                 <p className="text-gray-700 text-sm">
-                  {sch.courseName ? `Course: ${sch.courseName}` : "N/A"}
+                  Basic: ₹{sch.basic.toLocaleString()} + HRA: ₹
+                  {sch.hra.toLocaleString()}
                 </p>
               </div>
             </div>

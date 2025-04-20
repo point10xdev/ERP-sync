@@ -6,6 +6,7 @@
  * - Dean (single administrator user)
  * - HODs (Department Heads)
  * - Supervisors (Faculty members supervising students)
+ * - Students (Student users with different departments and courses)
  * 
  * Purpose:
  * - Provides a centralized repository of valid login credentials
@@ -29,7 +30,7 @@ export interface LoginDetail {
     email: string;
     department: string;
     designation: string;
-    course?: string; // For supervisors
+    course?: string; // For supervisors and students
 }
 
 // Dean login details - only one
@@ -150,6 +151,53 @@ export const SUPERVISOR_LOGINS: LoginDetail[] = [
     }
 ];
 
+// Student login details
+export const STUDENT_LOGINS: LoginDetail[] = [
+    // Computer Science Students
+    {
+        username: 'student_cs_1',
+        password: 'password123',
+        role: 'student',
+        name: 'Rahul Sharma',
+        email: 'rahul.sharma@nitsrinagar.ac.in',
+        department: 'Computer Science',
+        designation: 'Student',
+        course: 'B.Tech'
+    },
+    {
+        username: 'student_cs_2',
+        password: 'password123',
+        role: 'student',
+        name: 'Kavita Patel',
+        email: 'kavita.patel@nitsrinagar.ac.in',
+        department: 'Computer Science',
+        designation: 'Student',
+        course: 'PhD'
+    },
+    // Electrical Engineering Students
+    {
+        username: 'student_ee_1',
+        password: 'password123',
+        role: 'student',
+        name: 'Amit Kumar',
+        email: 'amit.kumar@nitsrinagar.ac.in',
+        department: 'Electrical Engineering',
+        designation: 'Student',
+        course: 'M.Tech'
+    },
+    // Mechanical Engineering Students
+    {
+        username: 'student_me_1',
+        password: 'password123',
+        role: 'student',
+        name: 'Priya Singh',
+        email: 'priya.singh@nitsrinagar.ac.in',
+        department: 'Mechanical Engineering',
+        designation: 'Student',
+        course: 'B.Tech'
+    }
+];
+
 /**
  * Finds login details by username
  * Used by the authentication service to validate credentials
@@ -168,6 +216,9 @@ export const findLoginDetailsByUsername = (username: string): LoginDetail | unde
     const supervisorMatch = SUPERVISOR_LOGINS.find(sup => sup.username === username);
     if (supervisorMatch) return supervisorMatch;
 
+    const studentMatch = STUDENT_LOGINS.find(student => student.username === username);
+    if (studentMatch) return studentMatch;
+
     return undefined;
 };
 
@@ -181,6 +232,7 @@ export const getAllUsernames = (): { username: string; role: SystemRole; name: s
     return [
         { username: DEAN_LOGIN.username, role: DEAN_LOGIN.role, name: DEAN_LOGIN.name },
         ...HOD_LOGINS.map(hod => ({ username: hod.username, role: hod.role, name: hod.name })),
-        ...SUPERVISOR_LOGINS.map(sup => ({ username: sup.username, role: sup.role, name: sup.name }))
+        ...SUPERVISOR_LOGINS.map(sup => ({ username: sup.username, role: sup.role, name: sup.name })),
+        ...STUDENT_LOGINS.map(student => ({ username: student.username, role: student.role, name: student.name }))
     ];
 }; 

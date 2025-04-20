@@ -1,22 +1,25 @@
-import { useState } from "react"; 
+import { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Used to navigate after login
 import { Loader } from "lucide-react"; // Spinner icon shown while loading
 import { useAuth } from "./store/authAtoms"; // Custom auth hook
 import { ROUTES } from "../../app/routes.ts"; // Route constants
+import { STUDENT_LOGINS } from "../../services/loginCredentials";
 
 // Student login component
 export const StudentLogin = () => {
   const navigate = useNavigate(); // Enables navigation after successful login
-  const { login, loading } = useAuth(); // Get login function and loading state from custom auth hook
+  const { login, loading, error: authError } = useAuth(); // Get login function, loading state and error from custom auth hook
 
   // State for user input and errors
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [formError, setFormError] = useState(""); // Shown when fields are empty
+  const [showDebugInfo, setShowDebugInfo] = useState(false);
 
   // Handle form submit
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault(); // Prevent default form reload behavior
+    setFormError(""); // Clear any previous form errors
 
     // Simple client-side validation
     if (!username || !password) {
@@ -26,14 +29,32 @@ export const StudentLogin = () => {
 
     try {
       // Call the login function with role 'student'
+      console.log("Attempting login with:", {
+        username,
+        password,
+        role: "student",
+      });
       await login({ username, password, role: "student" });
 
-      // Navigate to dashboard on success
-      navigate(ROUTES.DASHBOARD);
+      // Only navigate if login was successful (no errors)
+      if (!authError) {
+        console.log("Login successful, navigating to dashboard");
+        // Navigate to dashboard on success
+        navigate(ROUTES.DASHBOARD);
+      } else {
+        console.error("Login error from authError:", authError);
+        setFormError(authError);
+      }
     } catch (err) {
       // Errors (like wrong credentials) are handled in the login function itself
-      console.error("Login error:", err);
+      console.error("Login error from catch:", err);
+      setFormError("Login failed. Please try again.");
     }
+  };
+
+  // Toggle debug info display
+  const toggleDebugInfo = () => {
+    setShowDebugInfo(!showDebugInfo);
   };
 
   return (
@@ -47,9 +68,9 @@ export const StudentLogin = () => {
         </div>
 
         {/* Show error if any */}
-        {formError && (
+        {(formError || authError) && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-            {formError}
+            {formError || authError}
           </div>
         )}
 
@@ -110,6 +131,38 @@ export const StudentLogin = () => {
             )}
           </button>
         </form>
+
+        {/* Debug Info Toggle Button */}
+        <div className="mt-4 text-center">
+          <button
+            onClick={toggleDebugInfo}
+            className="text-sm text-gray-500 hover:text-gray-700 underline"
+          >
+            {showDebugInfo ? "Hide Debug Info" : "Show Debug Info"}
+          </button>
+        </div>
+
+        {/* Debug Info Panel */}
+        {showDebugInfo && (
+          <div className="mt-4 p-4 bg-gray-100 rounded-md text-xs">
+            <h3 className="font-semibold mb-2">Available Student Logins:</h3>
+            <ul className="space-y-2">
+              {STUDENT_LOGINS.map((student) => (
+                <li key={student.username} className="flex justify-between">
+                  <span>
+                    Username: <strong>{student.username}</strong>
+                  </span>
+                  <span>
+                    Password: <strong>{student.password}</strong>
+                  </span>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-2 text-gray-500">
+              Click on any username to use it. All passwords are "password123".
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

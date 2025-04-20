@@ -26,7 +26,13 @@
 import { LoginCredentials, SignupData, User } from '../../features/types';
 import { ApiError } from '../httpClient';
 import { APP_CONFIG, AUTH_CONFIG } from '../../config';
-import { DEAN_LOGIN, HOD_LOGINS, SUPERVISOR_LOGINS, findLoginDetailsByUsername } from '../loginCredentials';
+import {
+  DEAN_LOGIN,
+  HOD_LOGINS,
+  SUPERVISOR_LOGINS,
+  STUDENT_LOGINS,
+  findLoginDetailsByUsername
+} from '../loginCredentials';
 
 /**
  * Authentication Service
@@ -57,16 +63,21 @@ class AuthService {
         throw new Error('Invalid password');
       }
 
+      // Check if role matches the expected role 
+      if (loginDetail.role !== credentials.role) {
+        throw new Error(`This account has role '${loginDetail.role}' but you're trying to login as '${credentials.role}'`);
+      }
+
       // Create a user object based on validated login details
       const user: User = {
         username: loginDetail.username,
         role: loginDetail.role,
-        firstName: loginDetail.name.split(' ')[1], // Assuming "Dr. First Last" format
-        lastName: loginDetail.name.split(' ')[2] || '', // Some names might not have Last name
+        firstName: loginDetail.name.split(' ')[0], // First name
+        lastName: loginDetail.name.split(' ').slice(1).join(' '), // Last name (everything after first name)
         email: loginDetail.email,
         department: loginDetail.department,
         designation: loginDetail.designation,
-        course: loginDetail.course, // Only present for supervisors
+        course: loginDetail.course, // Only present for supervisors and students
         profileImageUrl: `${APP_CONFIG.DEFAULT_AVATAR_API}?seed=${loginDetail.username}`,
         lastLogin: new Date(),
       };
@@ -75,13 +86,15 @@ class AuthService {
       localStorage.setItem(AUTH_CONFIG.TOKEN_KEY, 'mock-jwt-token');
       localStorage.setItem(AUTH_CONFIG.USER_KEY, JSON.stringify(user));
 
+      console.log('Login successful:', user);
       return user;
     } catch (error) {
+      console.error('Login error:', error);
       if (error instanceof ApiError) {
         throw new Error(`Login failed: ${error.message}`);
       }
       if (error instanceof Error) {
-        throw new Error(`Login failed: ${error.message}`);
+        throw error; // Preserve the original error message
       }
       throw new Error('Login failed: Unable to authenticate');
     }
@@ -91,14 +104,14 @@ class AuthService {
    * Register a new user (disabled in mock implementation)
    * In this mock version, registration is disabled since we're using predefined accounts
    * 
-   * @param data User registration data
+   * @param signupData User registration data
    * @returns Promise resolving to newly created user information
    * @throws Error indicating registration is disabled
    */
-  async signup(data: SignupData): Promise<User> {
+  async signup(signupData: SignupData): Promise<User> {
     try {
       // In a real implementation, this would call the API
-      // const user = await httpClient.post<User>('/auth/register', data, { withAuth: false });
+      // const user = await httpClient.post<User>('/auth/register', signupData, { withAuth: false });
 
       // For mock implementation, reject signup attempts since we're using predefined users
       throw new Error('Registration is disabled. Please use one of the predefined login accounts.');
@@ -108,7 +121,7 @@ class AuthService {
         throw new Error(`Registration failed: ${error.message}`);
       }
       if (error instanceof Error) {
-        throw new Error(`Registration failed: ${error.message}`);
+        throw error; // Preserve the original error message
       }
       throw new Error('Registration failed: Unable to create account');
     }
@@ -130,11 +143,12 @@ class AuthService {
       localStorage.removeItem(AUTH_CONFIG.USER_KEY);
 
       return Promise.resolve();
-    } catch (error) {
-      console.error('Logout error:', error);
+    } catch (e) {
+      console.error('Logout error:', e);
       // Still remove local storage items even if API call fails
       localStorage.removeItem(AUTH_CONFIG.TOKEN_KEY);
       localStorage.removeItem(AUTH_CONFIG.USER_KEY);
+      throw e; // Propagate the error for better debugging
     }
   }
 
@@ -183,7 +197,8 @@ class AuthService {
     return [
       { username: DEAN_LOGIN.username, role: DEAN_LOGIN.role, name: DEAN_LOGIN.name },
       ...HOD_LOGINS.map(hod => ({ username: hod.username, role: hod.role, name: hod.name })),
-      ...SUPERVISOR_LOGINS.map(sup => ({ username: sup.username, role: sup.role, name: sup.name }))
+      ...SUPERVISOR_LOGINS.map(sup => ({ username: sup.username, role: sup.role, name: sup.name })),
+      ...STUDENT_LOGINS.map(student => ({ username: student.username, role: student.role, name: student.name }))
     ];
   }
 }

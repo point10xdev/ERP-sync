@@ -8,31 +8,21 @@ export const CurrentScholarship = () => {
   const [currentScholarship, setCurrentScholarship] =
     useState<Scholarship | null>(null);
 
-  const isCurrentScholarship = (sch: Scholarship): boolean => {
-    const now = new Date();
-    const currentMonth = now.toLocaleString("default", { month: "long" }); // "April"
-    const currentYear = String(now.getFullYear());
-
-    return (
-      (sch.status === "pending" || sch.status === "approved") &&
-      sch.month === currentMonth &&
-      sch.year === currentYear
-    );
-  };
-
   useEffect(() => {
     // In a real app, we would fetch scholarship data for the current user
     // For now, we'll use mock data
     const mockScholarship: Scholarship = {
-      id: "1",
-      name: "Merit Scholarship 2023-24",
-      amount: 50000,
-      status: "Active",
-      startDate: new Date("2023-09-01"),
-      endDate: new Date("2024-06-30"),
-      studentId: user?.username || "",
-      courseName: user?.course || "Unknown",
-      department: user?.department || "Unknown",
+      id: "sch-130",
+      name: "April 2024 Scholarship",
+      scholar: user?.username || "unknown_student", // Using username as scholar ID for mock data
+      month: "April",
+      year: "2024",
+      days: 20,
+      total_pay: 20000,
+      total_pay_per_day: 1000,
+      basic: 15000,
+      hra: 5000,
+      status: "pending", // Using the proper ScholarshipStatus
     };
 
     setCurrentScholarship(mockScholarship);

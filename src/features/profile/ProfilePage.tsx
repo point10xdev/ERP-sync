@@ -27,16 +27,37 @@ export const ProfilePage = () => {
           }
         } else {
           // Fetch faculty data for dean, supervisor, hod
-          // In a real app, you'd have a way to map auth user to faculty records
-          const faculty = await facultyService.getAllFaculty();
-          const matchedFaculty = faculty.find((f) => f.user === user.username);
-          if (matchedFaculty) {
-            setFacultyData(matchedFaculty);
+          console.log(`Fetching faculty data for username: ${user.username}`);
+
+          try {
+            // Try to get faculty by username directly
+            const faculty = await facultyService.getFacultyByUsername(
+              user.username
+            );
+            console.log("Found faculty data:", faculty);
+            setFacultyData(faculty);
+          } catch (e) {
+            console.error("Error fetching faculty by username:", e);
+
+            // Fallback to getting all faculty
+            const allFaculty = await facultyService.getAllFaculty();
+            console.log("All faculty data:", allFaculty);
+            const matchedFaculty = allFaculty.find(
+              (f) => f.user === user.username
+            );
+
+            if (matchedFaculty) {
+              console.log("Found faculty via fallback:", matchedFaculty);
+              setFacultyData(matchedFaculty);
+            } else {
+              console.error("No faculty found with username:", user.username);
+              setError(`No faculty profile found for ${user.username}`);
+            }
           }
         }
       } catch (err) {
+        console.error("Profile data fetch error:", err);
         setError("Failed to load profile data");
-        console.error(err);
       } finally {
         setLoading(false);
       }

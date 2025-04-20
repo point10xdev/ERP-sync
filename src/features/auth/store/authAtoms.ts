@@ -93,9 +93,12 @@ export const useAuth = () => {
         try {
             const user = await authService.login(credentials); // make API call
             setSuccess(user); // set state if successful
+            return user; // Return the user object on success
         } catch (e) {
             console.error('Login failed:', e);
-            setFailure('Invalid credentials'); // generic error message
+            const errorMessage = e instanceof Error ? e.message : 'Invalid credentials';
+            setFailure(errorMessage); // Use the specific error message if available
+            throw e; // Re-throw the error for the component to handle
         }
     };
 
@@ -171,6 +174,7 @@ export const useInitAuth = () => {
                     loading: false,
                     error: null,
                 });
+                return user; // Return the user object on success
             } catch (e) {
                 console.error('Auth initialization failed:', e);
                 localStorage.removeItem('auth_token'); // token might be invalid, remove it
@@ -180,8 +184,11 @@ export const useInitAuth = () => {
                     loading: false,
                     error: 'Session expired',
                 });
+                throw e; // Re-throw for the component to handle
             }
         }
+
+        return null; // Return null if no token was found
     };
 
     return { initializeAuth }; // function that should be called on app start

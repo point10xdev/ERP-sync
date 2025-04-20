@@ -29,6 +29,17 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({
   const { isAuthenticated, user, loading } = useAuth();
   const location = useLocation();
 
+  // Log authentication state for debugging
+  useEffect(() => {
+    console.log("PrivateRoute - Auth State:", {
+      isAuthenticated,
+      user,
+      loading,
+      currentPath: location.pathname,
+      allowedRoles,
+    });
+  }, [isAuthenticated, user, loading, location.pathname, allowedRoles]);
+
   // Log access attempts for security monitoring
   useEffect(() => {
     if (!isAuthenticated && requireAuth) {
@@ -53,6 +64,7 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({
 
   // Redirect to login if not authenticated
   if (!isAuthenticated && requireAuth) {
+    console.log("Not authenticated, redirecting to faculty login");
     return (
       <Navigate to={ROUTES.FACULTY_LOGIN} state={{ from: location }} replace />
     );
@@ -60,9 +72,11 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({
 
   // Redirect to dashboard if user doesn't have required role
   if (allowedRoles && user && !allowedRoles.includes(user.role)) {
+    console.log(`User role ${user.role} not allowed, redirecting to dashboard`);
     return <Navigate to={ROUTES.DASHBOARD} replace />;
   }
 
   // Render children if authenticated and authorized
+  console.log("Rendering protected content for:", user?.username);
   return <>{children}</>;
 };

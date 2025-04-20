@@ -26,7 +26,7 @@ import { Faculty } from '../types/schema';
 export const MOCK_FACULTY_DATA: Faculty[] = [
     {
         id: 'f1',
-        user: 'u1',
+        user: 'hod_cs',
         name: 'Dr. Aditya Sharma',
         email: 'aditya.sharma@nitsrinagar.ac.in',
         phone_number: '9876543210',
@@ -37,7 +37,7 @@ export const MOCK_FACULTY_DATA: Faculty[] = [
     },
     {
         id: 'f2',
-        user: 'u2',
+        user: 'supervisor_cs_1',
         name: 'Dr. Priya Patel',
         email: 'priya.patel@nitsrinagar.ac.in',
         phone_number: '9876543211',
@@ -48,7 +48,7 @@ export const MOCK_FACULTY_DATA: Faculty[] = [
     },
     {
         id: 'f3',
-        user: 'u3',
+        user: 'supervisor_cs_2',
         name: 'Dr. Rajesh Kumar',
         email: 'rajesh.kumar@nitsrinagar.ac.in',
         phone_number: '9876543212',
@@ -59,7 +59,7 @@ export const MOCK_FACULTY_DATA: Faculty[] = [
     },
     {
         id: 'f4',
-        user: 'u4',
+        user: 'hod_ee',
         name: 'Dr. Sneha Gupta',
         email: 'sneha.gupta@nitsrinagar.ac.in',
         phone_number: '9876543213',
@@ -70,7 +70,7 @@ export const MOCK_FACULTY_DATA: Faculty[] = [
     },
     {
         id: 'f5',
-        user: 'u5',
+        user: 'supervisor_ee_1',
         name: 'Dr. Vikram Singh',
         email: 'vikram.singh@nitsrinagar.ac.in',
         phone_number: '9876543214',
@@ -81,7 +81,7 @@ export const MOCK_FACULTY_DATA: Faculty[] = [
     },
     {
         id: 'f6',
-        user: 'u6',
+        user: 'hod_me',
         name: 'Dr. Aamir Khan',
         email: 'aamir.khan@nitsrinagar.ac.in',
         phone_number: '9876543215',
@@ -92,7 +92,7 @@ export const MOCK_FACULTY_DATA: Faculty[] = [
     },
     {
         id: 'f7',
-        user: 'u7',
+        user: 'supervisor_me_1',
         name: 'Dr. Neha Verma',
         email: 'neha.verma@nitsrinagar.ac.in',
         phone_number: '9876543216',
@@ -103,7 +103,7 @@ export const MOCK_FACULTY_DATA: Faculty[] = [
     },
     {
         id: 'f8',
-        user: 'u8',
+        user: 'hod_ce',
         name: 'Dr. Sunil Mehta',
         email: 'sunil.mehta@nitsrinagar.ac.in',
         phone_number: '9876543217',
@@ -114,7 +114,7 @@ export const MOCK_FACULTY_DATA: Faculty[] = [
     },
     {
         id: 'f9',
-        user: 'u9',
+        user: 'supervisor_ce_1',
         name: 'Dr. Divya Joshi',
         email: 'divya.joshi@nitsrinagar.ac.in',
         phone_number: '9876543218',
@@ -125,7 +125,7 @@ export const MOCK_FACULTY_DATA: Faculty[] = [
     },
     {
         id: 'f10',
-        user: 'u10',
+        user: 'hod_ch',
         name: 'Dr. Anjali Desai',
         email: 'anjali.desai@nitsrinagar.ac.in',
         phone_number: '9876543219',
@@ -136,7 +136,7 @@ export const MOCK_FACULTY_DATA: Faculty[] = [
     },
     {
         id: 'f11',
-        user: 'dean',
+        user: 'dean_user',
         name: 'Dr. Prakash Verma',
         email: 'dean@nitsrinagar.ac.in',
         phone_number: '9876543220',
