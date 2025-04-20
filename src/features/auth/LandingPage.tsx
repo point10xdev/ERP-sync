@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ROUTES } from '../../common/constants/routes';
+import { ROUTES } from '../../utils/constants/routes';
 import { useAuth } from './AuthContext';
 import { useEffect } from 'react';
 

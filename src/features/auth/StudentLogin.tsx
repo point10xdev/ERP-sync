@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Loader } from 'lucide-react';
 import { useAuth } from './AuthContext';
-import { ROUTES } from '../../common/constants/routes';
+import { ROUTES } from '../../utils/constants/routes';
 import { Role } from '../types';
 
 export const StudentLogin = () => {

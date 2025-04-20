@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "../features/auth/AuthContext";
-import { PrivateRoute } from "../common/components/PrivateRoute";
-import { DashboardLayout } from "../common/components/layouts";
+import { PrivateRoute } from "../shared/components/PrivateRoute";
+import { DashboardLayout } from "../shared/components/layouts";
 import { LoginPage, SignupPage, StudentLogin } from "../features/auth";
 import { HomePage } from "../features/dashboard";
 import { SupervisorPage } from "../features/supervisor";

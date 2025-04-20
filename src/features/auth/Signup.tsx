@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { GraduationCap } from 'lucide-react';
 import { useAuth } from './AuthContext';
 import { Role } from '../types';
-import { ROUTES } from '../../common/constants/routes';
+import { ROUTES } from '../../utils/constants/routes';
 
 export const SignupPage = () => {
   const navigate = useNavigate();
