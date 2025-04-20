@@ -1,33 +1,32 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Loader } from 'lucide-react';
-import { useAuth } from './AuthContext';
-import { ROUTES } from '../../utils/constants/routes';
-import { Role } from '../types';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Loader } from "lucide-react";
+import { useAuth } from "./authAtoms";
+import { ROUTES } from "../../utils/constants/routes";
+import { Role } from "../types";
 
 export const StudentLogin = () => {
   const navigate = useNavigate();
   const { login, loading } = useAuth();
-  
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [formError, setFormError] = useState('');
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [formError, setFormError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!username || !password) {
-      setFormError('Please enter both student ID and password');
+      setFormError("Please enter both student ID and password");
       return;
     }
-    
+
     try {
-      // Create credentials object as expected by the login function
-      const credentials = { username, password, role: 'student' as Role };
-      await login(credentials);
-      // Navigate to dashboard after successful login
+      // Call login with student role
+      await login({ username, password, role: "student" });
       navigate(ROUTES.DASHBOARD);
     } catch (err) {
-      setFormError('Login failed. Please try again.');
+      // Error handling is done in the login function
+      console.error("Login error:", err);
     }
   };
 
@@ -46,7 +45,10 @@ export const StudentLogin = () => {
         )}
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="username" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="username"
+              className="block text-sm font-medium text-gray-700"
+            >
               Student ID
             </label>
             <input
@@ -60,7 +62,10 @@ export const StudentLogin = () => {
             />
           </div>
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-gray-700"
+            >
               Password
             </label>
             <input
@@ -84,7 +89,7 @@ export const StudentLogin = () => {
                 Signing in...
               </>
             ) : (
-              'Sign In'
+              "Sign In"
             )}
           </button>
         </form>

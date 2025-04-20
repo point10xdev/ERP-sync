@@ -1,5 +1,5 @@
-import React from 'react';
-import { useAuth } from '../../features/auth/AuthContext';
+import React from "react";
+import { useAuth } from "../../features/auth/authAtoms";
 
 export const HomePage = () => {
   const { user } = useAuth();

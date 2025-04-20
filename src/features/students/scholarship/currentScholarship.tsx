@@ -1,59 +1,43 @@
-import React, { useState, useEffect } from 'react';
-import { useAuth } from '../../auth/AuthContext';
-import { Scholarship } from '../../types/schema';
+import React, { useState, useEffect } from "react";
+import { useAuth } from "../../auth/authAtoms";
+import { Scholarship } from "../../types/schema";
 
 export const CurrentScholarship = () => {
   const { user } = useAuth();
   const [loading, setLoading] = useState(true);
-  const [currentScholarship, setCurrentScholarship] = useState<Scholarship | null>(null);
+  const [currentScholarship, setCurrentScholarship] =
+    useState<Scholarship | null>(null);
 
   const isCurrentScholarship = (sch: Scholarship): boolean => {
     const now = new Date();
-    const currentMonth = now.toLocaleString('default', { month: 'long' }); // "April"
+    const currentMonth = now.toLocaleString("default", { month: "long" }); // "April"
     const currentYear = String(now.getFullYear());
 
     return (
-      (sch.status === 'pending' || sch.status === 'approved') &&
+      (sch.status === "pending" || sch.status === "approved") &&
       sch.month === currentMonth &&
       sch.year === currentYear
     );
   };
 
   useEffect(() => {
-    // Mock all scholarships (in real case, fetch from API)
-    const mockScholarships: Scholarship[] = [
-      {
-        id: 'sch-130',
-        name: 'April 2025 Scholarship',
-        scholar: 'stu101',
-        month: 'April',
-        year: '2025',
-        days: 20,
-        total_pay: 20000,
-        total_pay_per_day: 1000,
-        basic: 15000,
-        hra: 5000,
-        status: 'pending',
-      },
-      {
-        id: 'sch-129',
-        name: 'March 2025 Scholarship',
-        scholar: 'stu101',
-        month: 'March',
-        year: '2025',
-        days: 20,
-        total_pay: 20000,
-        total_pay_per_day: 1000,
-        basic: 15000,
-        hra: 5000,
-        status: 'paid',
-      }
-    ];
+    // In a real app, we would fetch scholarship data for the current user
+    // For now, we'll use mock data
+    const mockScholarship: Scholarship = {
+      id: "1",
+      name: "Merit Scholarship 2023-24",
+      amount: 50000,
+      status: "Active",
+      startDate: new Date("2023-09-01"),
+      endDate: new Date("2024-06-30"),
+      studentId: user?.username || "",
+      courseName: user?.course || "Unknown",
+      department: user?.department || "Unknown",
+    };
 
-    const current = mockScholarships.find(isCurrentScholarship) || null;
-    setCurrentScholarship(current);
+    setCurrentScholarship(mockScholarship);
     setLoading(false);
-  }, []);
+  }, [user]);
 
   if (loading) {
     return (
@@ -67,7 +51,9 @@ export const CurrentScholarship = () => {
     return (
       <div className="p-6 bg-white rounded-lg shadow-md">
         <h2 className="text-xl font-semibold mb-4">Current Scholarship</h2>
-        <p className="text-gray-600">You don't have any active scholarships at the moment.</p>
+        <p className="text-gray-600">
+          You don't have any active scholarships at the moment.
+        </p>
       </div>
     );
   }
@@ -80,12 +66,17 @@ export const CurrentScholarship = () => {
         <div className="bg-blue-50 p-4 rounded-lg border border-blue-100">
           <div className="flex justify-between items-center">
             <h3 className="text-lg font-medium">{currentScholarship.name}</h3>
-            <span className={`px-3 py-1 rounded-full text-sm ${
-              currentScholarship.status === 'paid' ? 'bg-green-100 text-green-800' :
-              currentScholarship.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
-              'bg-red-100 text-red-800'
-            }`}>
-              {currentScholarship.status.charAt(0).toUpperCase() + currentScholarship.status.slice(1)}
+            <span
+              className={`px-3 py-1 rounded-full text-sm ${
+                currentScholarship.status === "paid"
+                  ? "bg-green-100 text-green-800"
+                  : currentScholarship.status === "pending"
+                  ? "bg-yellow-100 text-yellow-800"
+                  : "bg-red-100 text-red-800"
+              }`}
+            >
+              {currentScholarship.status.charAt(0).toUpperCase() +
+                currentScholarship.status.slice(1)}
             </span>
           </div>
         </div>
@@ -94,18 +85,24 @@ export const CurrentScholarship = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
         <div>
           <h4 className="text-sm text-gray-500 mb-1">Amount</h4>
-          <p className="text-xl font-medium">₹{currentScholarship.total_pay.toLocaleString()}</p>
+          <p className="text-xl font-medium">
+            ₹{currentScholarship.total_pay.toLocaleString()}
+          </p>
         </div>
         <div>
           <h4 className="text-sm text-gray-500 mb-1">Month</h4>
-          <p>{currentScholarship.month}, {currentScholarship.year}</p>
+          <p>
+            {currentScholarship.month}, {currentScholarship.year}
+          </p>
         </div>
       </div>
 
       <div>
         <h4 className="text-sm text-gray-500 mb-1">Details</h4>
         <p className="text-gray-700">
-          Basic: ₹{currentScholarship.basic.toLocaleString()} | HRA: ₹{currentScholarship.hra.toLocaleString()} | Per Day: ₹{currentScholarship.total_pay_per_day}
+          Basic: ₹{currentScholarship.basic.toLocaleString()} | HRA: ₹
+          {currentScholarship.hra.toLocaleString()} | Per Day: ₹
+          {currentScholarship.total_pay_per_day}
         </p>
       </div>
     </div>

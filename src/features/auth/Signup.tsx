@@ -1,37 +1,37 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { GraduationCap } from 'lucide-react';
-import { useAuth } from './AuthContext';
-import { Role } from '../types';
-import { ROUTES } from '../../utils/constants/routes';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { GraduationCap } from "lucide-react";
+import { useAuth } from "./authAtoms";
+import { Role } from "../types";
+import { ROUTES } from "../../utils/constants/routes";
 
 export const SignupPage = () => {
   const navigate = useNavigate();
   const { signup } = useAuth();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [role, setRole] = useState<Role>('dean');
-  const [error, setError] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [role, setRole] = useState<Role>("dean");
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      setError('Passwords do not match');
+      setError("Passwords do not match");
       return;
     }
     try {
-      await signup({ 
-        username, 
-        password, 
-        role,
-        firstName: '', // These empty values are just placeholders
-        lastName: '', // You might want to add proper fields for these
-        email: '',
+      await signup({
+        username,
+        password,
+        firstName: "", // These empty values are just placeholders
+        lastName: "", // You might want to add proper fields for these
+        email: "",
+        role: role as Role,
       });
       navigate(ROUTES.DASHBOARD);
     } catch (err) {
-      setError('Failed to create account');
+      console.error("Signup error:", err);
     }
   };
 
@@ -102,7 +102,7 @@ export const SignupPage = () => {
           </button>
         </form>
         <p className="mt-4 text-center text-sm text-gray-600">
-          Already have an account?{' '}
+          Already have an account?{" "}
           <a
             href={ROUTES.FACULTY_LOGIN}
             className="text-purple-600 hover:text-purple-700"

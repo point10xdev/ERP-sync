@@ -1,7 +1,9 @@
 // Destructuring import from react-router-dom with aliasing
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// Provides auth context to the app
-import { AuthProvider } from "../features/auth/AuthContext";
+// Recoil root provider
+import { RecoilRoot } from "recoil";
+// Auth initializer component
+import { AuthInitializer } from "../features/auth/AuthInitializer";
 // Route guard for protected routes
 import { PrivateRoute } from "../shared/components/PrivateRoute";
 
@@ -11,15 +13,20 @@ import { HomePage } from "../features/dashboard";
 import { SupervisorPage } from "../features/supervisor";
 import { MyStudentsPage } from "../features/students";
 import { ProfilePage } from "../features/profile";
-import { CurrentScholarship, PreviousScholarships } from "../features/students/scholarship";
+import {
+  CurrentScholarship,
+  PreviousScholarships,
+} from "../features/students/scholarship";
 import { LandingPage } from "../features/auth/LandingPage";
 import { DepartmentFaculty } from "../features/faculty";
 import { ROUTES } from "./routes";
 
 function App() {
   return (
-    // Wrap entire app with AuthProvider to provide authentication context
-    <AuthProvider>
+    // Wrap entire app with RecoilRoot to provide Recoil state
+    <RecoilRoot>
+      {/* Initialize authentication state */}
+      <AuthInitializer />
       {/* Set up routing using react-router */}
       <Router>
         <Routes>
@@ -102,7 +109,7 @@ function App() {
           />
         </Routes>
       </Router>
-    </AuthProvider>
+    </RecoilRoot>
   );
 }
 

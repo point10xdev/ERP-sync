@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { GraduationCap, Loader } from "lucide-react";
-import { useAuth } from "./AuthContext";
+import { useAuth } from "./authAtoms";
 import { ROUTES } from "../../utils/constants/routes";
 import { Role } from "../types";
 import { authService } from "../../services/api/auth";

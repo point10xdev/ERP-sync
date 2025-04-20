@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../../features/auth/AuthContext';
-import { ROUTES } from '../../utils/constants/routes';
-import { Role } from '../../features/types';
+import React, { useEffect } from "react";
+import { Navigate, useLocation } from "react-router-dom";
+import { useAuth } from "../../features/auth/authAtoms";
+import { ROUTES } from "../../utils/constants/routes";
+import { Role } from "../../features/types";
 
 /**
  * Props for the PrivateRoute component
@@ -34,20 +34,28 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({
     if (!isAuthenticated && requireAuth) {
       console.info(`Unauthorized access attempt to ${location.pathname}`);
     }
-    
+
     if (allowedRoles && user && !allowedRoles.includes(user.role)) {
-      console.warn(`User ${user.username} with role ${user.role} attempted to access restricted route ${location.pathname}`);
+      console.warn(
+        `User ${user.username} with role ${user.role} attempted to access restricted route ${location.pathname}`
+      );
     }
   }, [isAuthenticated, user, location.pathname, allowedRoles, requireAuth]);
 
   // Show loading state while checking authentication
   if (loading) {
-    return <div className="flex items-center justify-center h-screen">Loading...</div>;
+    return (
+      <div className="flex items-center justify-center h-screen">
+        Loading...
+      </div>
+    );
   }
 
   // Redirect to login if not authenticated
   if (!isAuthenticated && requireAuth) {
-    return <Navigate to={ROUTES.FACULTY_LOGIN} state={{ from: location }} replace />;
+    return (
+      <Navigate to={ROUTES.FACULTY_LOGIN} state={{ from: location }} replace />
+    );
   }
 
   // Redirect to dashboard if user doesn't have required role

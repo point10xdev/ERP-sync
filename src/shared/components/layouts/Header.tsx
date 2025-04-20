@@ -1,8 +1,8 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { UserCircle, LogOut } from 'lucide-react';
-import { useAuth } from '../../../features/auth/AuthContext';
-import { ROUTES } from '../../../app/routes';
-import { useState } from 'react';
+import { Link, useNavigate } from "react-router-dom";
+import { UserCircle, LogOut } from "lucide-react";
+import { useAuth } from "../../../features/auth/authAtoms";
+import { ROUTES } from "../../../app/routes";
+import { useState } from "react";
 
 export const Header = () => {
   const navigate = useNavigate();
@@ -13,11 +13,11 @@ export const Header = () => {
   const handleImageError = () => {
     setImageError(true);
   };
-  
+
   // Handle logout and redirect to landing page
   const handleLogout = async () => {
     await logout();
-    navigate('/', { replace: true }); // Redirect to landing page
+    navigate("/", { replace: true }); // Redirect to landing page
   };
 
   return (
@@ -33,7 +33,10 @@ export const Header = () => {
             ) : (
               <>
                 <span className="text-sm text-gray-600">
-                  Welcome, <span className="font-medium">{user?.username || 'Guest'}</span>
+                  Welcome,{" "}
+                  <span className="font-medium">
+                    {user?.username || "Guest"}
+                  </span>
                 </span>
                 <div className="flex items-center space-x-2">
                   <Link

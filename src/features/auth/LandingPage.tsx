@@ -1,11 +1,11 @@
-import { Link } from 'react-router-dom';
-import { ROUTES } from '../../utils/constants/routes';
-import { useAuth } from './AuthContext';
-import { useEffect } from 'react';
+import { Link } from "react-router-dom";
+import { ROUTES } from "../../utils/constants/routes";
+import { useAuth } from "./authAtoms";
+import { useEffect } from "react";
 
 export const LandingPage = () => {
   const { isAuthenticated, logout } = useAuth();
-  
+
   // If user is already authenticated, log them out first
   useEffect(() => {
     if (isAuthenticated) {
