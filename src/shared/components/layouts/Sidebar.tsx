@@ -10,7 +10,7 @@ import {
   Wallet,
   History,
 } from "lucide-react";
-import { useAuth } from "../../../features/auth/authAtoms";
+import { useAuth } from "../../../features/auth/store/authAtoms";
 import { ROUTES } from "../../../app/routes";
 
 export const Sidebar = () => {

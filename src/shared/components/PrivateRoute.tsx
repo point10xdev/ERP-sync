@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Navigate, useLocation } from "react-router-dom";
-import { useAuth } from "../../features/auth/authAtoms";
-import { ROUTES } from "../../utils/constants/routes";
+import { useAuth } from "../../features/auth/store/authAtoms";
+import { ROUTES } from "../../app/routes";
 import { Role } from "../../features/types";
 
 /**

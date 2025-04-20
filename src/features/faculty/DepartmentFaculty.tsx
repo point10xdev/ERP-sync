@@ -20,7 +20,7 @@
  */
 
 import React from "react";
-import { useAuth } from "../auth/authAtoms";
+import { useAuth } from "../auth/store/authAtoms";
 import { Faculty } from "../types/schema";
 import { MOCK_FACULTY_DATA } from "./mockFacultyData";
 

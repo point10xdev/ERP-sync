@@ -1,6 +1,6 @@
 import React from "react";
 import { StudentList } from "./StudentList";
-import { useAuth } from "../auth/authAtoms";
+import { useAuth } from "../auth/store/authAtoms";
 
 export const MyStudentsPage = () => {
   // Get user object for department filtering or other logic if needed later

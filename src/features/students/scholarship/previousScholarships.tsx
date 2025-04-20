@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useAuth } from "../../auth/authAtoms";
+import { useAuth } from "../../auth/store/authAtoms";
 import { Scholarship } from "../../types/schema";
 
 export const PreviousScholarships = () => {

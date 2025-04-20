@@ -26,7 +26,7 @@
  */
 
 import { useEffect, useState } from "react";
-import { useAuth } from "../auth/authAtoms";
+import { useAuth } from "../auth/store/authAtoms";
 import { Student, SystemRole } from "../types/schema";
 import { studentService } from "../../services/api";
 import { MOCK_FACULTY_DATA } from "../faculty/mockFacultyData";

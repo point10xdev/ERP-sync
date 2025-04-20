@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "../auth/authAtoms";
+import { useAuth } from "../auth/store/authAtoms";
 import { Faculty, Student } from "../types/schema";
 import { facultyService, studentService } from "../../services/api";
 import { ScholarshipInfo } from "./ScholarshipInfo";

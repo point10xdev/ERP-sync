@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { UserCircle, LogOut } from "lucide-react";
-import { useAuth } from "../../../features/auth/authAtoms";
+import { useAuth } from "../../../features/auth/store/authAtoms";
 import { ROUTES } from "../../../app/routes";
 import { useState } from "react";
 

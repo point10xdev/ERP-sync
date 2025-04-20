@@ -12,3 +12,7 @@ export const ROUTES = {
   SEMESTER: '/dashboard/supervisor/semester',
   DEPARTMENT_FACULTY: '/dashboard/department-faculty',
 } as const;
+
+// as const tells TypeScript to:
+//   Treat object values as literal types, not just string or number.  
+//   Make the object and its properties readonly (immutable).

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, Routes, Route } from 'react-router-dom';
-import { ROUTES } from '../../utils/constants/routes';
+import { ROUTES } from '../../app/routes';
 import { ClipboardCheck, BookOpen, Calendar } from 'lucide-react';
 
 type ActionColor = 'green' | 'indigo' | 'purple';

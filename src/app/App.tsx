@@ -8,7 +8,8 @@ import { AuthInitializer } from "../features/auth/AuthInitializer";
 import { PrivateRoute } from "../shared/components/PrivateRoute";
 
 import { DashboardLayout } from "../shared/components/layouts";
-import { FacultyLogin, SignupPage, StudentLogin } from "../features/auth";
+import { FacultyLogin, //SignupPage, 
+         StudentLogin } from "../features/auth";
 import { HomePage } from "../features/dashboard";
 import { SupervisorPage } from "../features/supervisor";
 import { MyStudentsPage } from "../features/students";
@@ -34,7 +35,7 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path={ROUTES.FACULTY_LOGIN} element={<FacultyLogin />} />
           <Route path={ROUTES.STUDENT_LOGIN} element={<StudentLogin />} />
-          <Route path={ROUTES.SIGNUP} element={<SignupPage />} />
+          {/* <Route path={ROUTES.SIGNUP} element={<SignupPage />} /> */}
 
           {/* Protected dashboard routes */}
           <Route
