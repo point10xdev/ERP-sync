@@ -1,15 +1,19 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { AuthProvider } from '../features/auth/AuthContext';
-import { PrivateRoute } from '../common/components/PrivateRoute';
-import { DashboardLayout } from '../common/components/layouts';
-import { LoginPage, SignupPage, StudentLogin } from '../features/auth';
-import { HomePage } from '../features/dashboard';
-import { SupervisorPage } from '../features/supervisor';
-import { MyStudentsPage } from '../features/students';
-import { ProfilePage } from '../features/profile';
-import { CurrentScholarship, PreviousScholarships } from '../features/students/scholarship';
-import { LandingPage } from '../features/auth/LandingPage';
-import { ROUTES } from './routes';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "../features/auth/AuthContext";
+import { PrivateRoute } from "../common/components/PrivateRoute";
+import { DashboardLayout } from "../common/components/layouts";
+import { LoginPage, SignupPage, StudentLogin } from "../features/auth";
+import { HomePage } from "../features/dashboard";
+import { SupervisorPage } from "../features/supervisor";
+import { MyStudentsPage } from "../features/students";
+import { ProfilePage } from "../features/profile";
+import {
+  CurrentScholarship,
+  PreviousScholarships,
+} from "../features/students/scholarship";
+import { LandingPage } from "../features/auth/LandingPage";
+import { DepartmentFaculty } from "../features/faculty";
+import { ROUTES } from "./routes";
 
 function App() {
   return (
@@ -31,7 +35,9 @@ function App() {
                     <Route
                       path="/my-students"
                       element={
-                        <PrivateRoute allowedRoles={['dean', 'supervisor', 'hod']}>
+                        <PrivateRoute
+                          allowedRoles={["dean", "supervisor", "hod"]}
+                        >
                           <MyStudentsPage />
                         </PrivateRoute>
                       }
@@ -39,7 +45,7 @@ function App() {
                     <Route
                       path="/supervisor/*"
                       element={
-                        <PrivateRoute allowedRoles={['dean', 'supervisor']}>
+                        <PrivateRoute allowedRoles={["dean", "supervisor"]}>
                           <SupervisorPage />
                         </PrivateRoute>
                       }
@@ -47,7 +53,7 @@ function App() {
                     <Route
                       path="/scholarship/current"
                       element={
-                        <PrivateRoute allowedRoles={['student']}>
+                        <PrivateRoute allowedRoles={["student"]}>
                           <CurrentScholarship />
                         </PrivateRoute>
                       }
@@ -55,8 +61,16 @@ function App() {
                     <Route
                       path="/scholarship/previous"
                       element={
-                        <PrivateRoute allowedRoles={['student']}>
+                        <PrivateRoute allowedRoles={["student"]}>
                           <PreviousScholarships />
+                        </PrivateRoute>
+                      }
+                    />
+                    <Route
+                      path="/department-faculty"
+                      element={
+                        <PrivateRoute allowedRoles={["hod"]}>
+                          <DepartmentFaculty />
                         </PrivateRoute>
                       }
                     />
@@ -65,7 +79,6 @@ function App() {
               </PrivateRoute>
             }
           />
-
         </Routes>
       </Router>
     </AuthProvider>

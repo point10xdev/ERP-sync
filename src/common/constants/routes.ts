@@ -1,5 +1,5 @@
 export const ROUTES = {
-  
+
   FACULTY_LOGIN: '/faculty-login',
   STUDENT_LOGIN: '/student-login',
   SIGNUP: '/signup',
@@ -10,4 +10,5 @@ export const ROUTES = {
   STUDENT_VERIFICATION: '/dashboard/supervisor/student-verification',
   SUBJECT_ASSIGNMENT: '/dashboard/supervisor/subject-assignment',
   SEMESTER: '/dashboard/supervisor/semester',
+  DEPARTMENT_FACULTY: '/dashboard/department-faculty',
 } as const;

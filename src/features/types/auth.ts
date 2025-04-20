@@ -8,6 +8,8 @@ export interface User {
   lastName?: string;
   email?: string;
   department?: string;
+  designation?: string;
+  course?: string;
   lastLogin?: Date;
 }
 

@@ -24,7 +24,7 @@ const MOCK_STUDENTS: Student[] = [
     course: 'B.Tech',
     university: 'NIT Srinagar',
     joining_date: '2022-08-15',
-    supervisor: 'fac001',
+    supervisor: 'f2', // Dr. Priya Patel
     scholarship_basic: 8000,
     scholarship_hra: 2000,
   },
@@ -37,11 +37,11 @@ const MOCK_STUDENTS: Student[] = [
     email: 'jane.smith@example.com',
     phone_number: '9876543210',
     address: '456 Oak Ave, Town',
-    department: 'Electronics',
+    department: 'Electrical Engineering',
     course: 'M.Tech',
     university: 'NIT Srinagar',
     joining_date: '2022-07-10',
-    supervisor: 'fac002',
+    supervisor: 'f5', // Dr. Vikram Singh
     scholarship_basic: 10000,
     scholarship_hra: 2500,
   },
@@ -58,9 +58,94 @@ const MOCK_STUDENTS: Student[] = [
     course: 'PhD',
     university: 'NIT Srinagar',
     joining_date: '2021-09-01',
-    supervisor: 'fac001',
+    supervisor: 'f3', // Dr. Rajesh Kumar
     scholarship_basic: 15000,
     scholarship_hra: 3000,
+  },
+  {
+    id: '4',
+    enroll: 'ENR004',
+    registration: 'REG004',
+    user: 'user4',
+    name: 'Priya Sharma',
+    email: 'priya.sharma@example.com',
+    phone_number: '7654321098',
+    address: '101 Elm St, City',
+    department: 'Mechanical Engineering',
+    course: 'M.Tech',
+    university: 'NIT Srinagar',
+    joining_date: '2022-01-15',
+    supervisor: 'f7', // Dr. Neha Verma
+    scholarship_basic: 10000,
+    scholarship_hra: 2500,
+  },
+  {
+    id: '5',
+    enroll: 'ENR005',
+    registration: 'REG005',
+    user: 'user5',
+    name: 'Amit Singh',
+    email: 'amit.singh@example.com',
+    phone_number: '6543210987',
+    address: '202 Cedar Ave, Town',
+    department: 'Civil Engineering',
+    course: 'B.Tech',
+    university: 'NIT Srinagar',
+    joining_date: '2022-08-01',
+    supervisor: 'f9', // Dr. Divya Joshi
+    scholarship_basic: 8000,
+    scholarship_hra: 2000,
+  },
+  {
+    id: '6',
+    enroll: 'ENR006',
+    registration: 'REG006',
+    user: 'user6',
+    name: 'Sneha Reddy',
+    email: 'sneha.reddy@example.com',
+    phone_number: '5432109876',
+    address: '303 Birch Rd, Village',
+    department: 'Electrical Engineering',
+    course: 'PhD',
+    university: 'NIT Srinagar',
+    joining_date: '2021-07-20',
+    supervisor: 'f5', // Dr. Vikram Singh
+    scholarship_basic: 15000,
+    scholarship_hra: 3000,
+  },
+  {
+    id: '7',
+    enroll: 'ENR007',
+    registration: 'REG007',
+    user: 'user7',
+    name: 'Rahul Verma',
+    email: 'rahul.verma@example.com',
+    phone_number: '4321098765',
+    address: '404 Willow St, City',
+    department: 'Computer Science',
+    course: 'M.Tech',
+    university: 'NIT Srinagar',
+    joining_date: '2022-06-10',
+    supervisor: 'f2', // Dr. Priya Patel
+    scholarship_basic: 10000,
+    scholarship_hra: 2500,
+  },
+  {
+    id: '8',
+    enroll: 'ENR008',
+    registration: 'REG008',
+    user: 'user8',
+    name: 'Kiran Joshi',
+    email: 'kiran.joshi@example.com',
+    phone_number: '3210987654',
+    address: '505 Maple Ave, Town',
+    department: 'Chemical Engineering',
+    course: 'B.Tech',
+    university: 'NIT Srinagar',
+    joining_date: '2022-08-25',
+    supervisor: 'f10', // Dr. Anjali Desai
+    scholarship_basic: 8000,
+    scholarship_hra: 2000,
   },
 ];
 
@@ -170,12 +255,12 @@ class StudentService {
   /**
    * Get student scholarships
    */
-  async getStudentScholarships(studentId: string): Promise<any[]> {
+  async getStudentScholarships(studentId: string): Promise<unknown[]> {
     if (USE_MOCK_DATA) {
       // Return empty array for mock data
       return Promise.resolve([]);
     }
-    return httpClient.get<any[]>(ENDPOINTS.SCHOLARSHIP(studentId));
+    return httpClient.get<unknown[]>(ENDPOINTS.SCHOLARSHIP(studentId));
   }
 }
 
