@@ -1,4 +1,4 @@
 export * from './AuthContext';
-export { LoginPage } from './Login';
+export { FacultyLogin } from './Login';
 export { SignupPage } from './Signup';
 export { StudentLogin } from './StudentLogin';

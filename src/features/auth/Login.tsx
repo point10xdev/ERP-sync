@@ -6,7 +6,7 @@ import { ROUTES } from "../../utils/constants/routes";
 import { Role } from "../types";
 import { authService } from "../../services/api/auth";
 
-export const LoginPage = () => {
+export const FacultyLogin = () => {
   const navigate = useNavigate();
   const { login, loading } = useAuth();
 
