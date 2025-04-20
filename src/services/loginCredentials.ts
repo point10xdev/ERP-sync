@@ -1,3 +1,23 @@
+/**
+ * LOGIN CREDENTIALS MODULE
+ * 
+ * This file defines the predefined login credentials for the ERP system.
+ * It contains structured data for all available user accounts organized by role:
+ * - Dean (single administrator user)
+ * - HODs (Department Heads)
+ * - Supervisors (Faculty members supervising students)
+ * 
+ * Purpose:
+ * - Provides a centralized repository of valid login credentials
+ * - Enforces role-based authentication with proper user profiles
+ * - Establishes connections between users and departments/courses
+ * 
+ * Authentication flow:
+ * 1. User enters credentials on login screen
+ * 2. The auth service validates credentials against these predefined accounts
+ * 3. If valid, the user object is created with appropriate role and permissions
+ */
+
 import { SystemRole } from '../features/types/schema';
 
 // Type for login credentials
@@ -130,7 +150,13 @@ export const SUPERVISOR_LOGINS: LoginDetail[] = [
     }
 ];
 
-// Function to find login details by username
+/**
+ * Finds login details by username
+ * Used by the authentication service to validate credentials
+ * 
+ * @param username - The username to look for
+ * @returns The matching login details or undefined if not found
+ */
 export const findLoginDetailsByUsername = (username: string): LoginDetail | undefined => {
     if (username === DEAN_LOGIN.username) {
         return DEAN_LOGIN;
@@ -145,7 +171,12 @@ export const findLoginDetailsByUsername = (username: string): LoginDetail | unde
     return undefined;
 };
 
-// Function to get all available usernames for display
+/**
+ * Returns a list of all available usernames with their roles and names
+ * Used for UI displays and test login features
+ * 
+ * @returns Array of username, role and name objects
+ */
 export const getAllUsernames = (): { username: string; role: SystemRole; name: string }[] => {
     return [
         { username: DEAN_LOGIN.username, role: DEAN_LOGIN.role, name: DEAN_LOGIN.name },

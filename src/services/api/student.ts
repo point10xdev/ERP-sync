@@ -1,6 +1,32 @@
+/**
+ * STUDENT SERVICE MODULE
+ * 
+ * This file implements the API service for student-related operations. 
+ * Since we're working in development mode without a backend, it provides mock 
+ * implementations of all student API calls with static test data.
+ * 
+ * Key functionalities:
+ * - CRUD operations for student data (Create, Read, Update, Delete)
+ * - Filtering students by supervisor
+ * - Filtering students by department
+ * - Managing student scholarships
+ * 
+ * The module is designed to mimic real API behavior and would be replaced with
+ * actual HTTP calls in production. The mock data structure matches the expected
+ * backend response format.
+ * 
+ * Usage flow:
+ * 1. Components call these service methods (e.g., getAllStudents())
+ * 2. The service returns mocked data in development mode
+ * 3. In production, it would make HTTP requests to the backend API
+ */
+
 import { httpClient } from '../httpClient';
 import { Student } from '../../features/types/schema';
 
+/**
+ * API endpoints for student operations
+ */
 const ENDPOINTS = {
   BASE: '/students',
   DETAIL: (id: string) => `/students/${id}`,
@@ -9,7 +35,15 @@ const ENDPOINTS = {
   SCHOLARSHIP: (studentId: string) => `/students/${studentId}/scholarships`,
 };
 
-// Mock data for development and testing
+/**
+ * Mock student data for development and testing
+ * Each student has:
+ * - Unique ID and enrollment information
+ * - Personal details (name, email, contact)
+ * - Academic information (department, course)
+ * - Supervisor reference (links to faculty data)
+ * - Scholarship information
+ */
 const MOCK_STUDENTS: Student[] = [
   {
     id: '1',
@@ -37,7 +71,7 @@ const MOCK_STUDENTS: Student[] = [
     email: 'jane.smith@example.com',
     phone_number: '9876543210',
     address: '456 Oak Ave, Town',
-    department: 'Electrical Engineering',
+    department: 'Electrical Engineering', // Fixed to match faculty department
     course: 'M.Tech',
     university: 'NIT Srinagar',
     joining_date: '2022-07-10',
@@ -159,6 +193,7 @@ const USE_MOCK_DATA = true; // Change to false when API is ready
 class StudentService {
   /**
    * Get all students
+   * @returns Promise resolving to array of all students
    */
   async getAllStudents(): Promise<Student[]> {
     if (USE_MOCK_DATA) {
@@ -170,6 +205,8 @@ class StudentService {
 
   /**
    * Get student by ID
+   * @param id Student ID to retrieve
+   * @returns Promise resolving to a single student
    */
   async getStudentById(id: string): Promise<Student> {
     if (USE_MOCK_DATA) {
@@ -184,6 +221,8 @@ class StudentService {
 
   /**
    * Get students by supervisor
+   * @param facultyId ID of the faculty supervisor
+   * @returns Promise resolving to array of students under the supervisor
    */
   async getStudentsBySupervisor(facultyId: string): Promise<Student[]> {
     if (USE_MOCK_DATA) {
@@ -196,6 +235,8 @@ class StudentService {
 
   /**
    * Get students by department
+   * @param department Department name to filter by
+   * @returns Promise resolving to array of students in the department
    */
   async getStudentsByDepartment(department: string): Promise<Student[]> {
     if (USE_MOCK_DATA) {
@@ -208,6 +249,8 @@ class StudentService {
 
   /**
    * Create a new student
+   * @param student Student data without ID
+   * @returns Promise resolving to created student with ID
    */
   async createStudent(student: Omit<Student, 'id'>): Promise<Student> {
     if (USE_MOCK_DATA) {
@@ -224,6 +267,9 @@ class StudentService {
 
   /**
    * Update student information
+   * @param id ID of student to update
+   * @param student Partial student data with fields to update
+   * @returns Promise resolving to updated student
    */
   async updateStudent(id: string, student: Partial<Student>): Promise<Student> {
     if (USE_MOCK_DATA) {
@@ -239,6 +285,8 @@ class StudentService {
 
   /**
    * Delete student
+   * @param id ID of student to delete
+   * @returns Promise resolving to void on success
    */
   async deleteStudent(id: string): Promise<void> {
     if (USE_MOCK_DATA) {
@@ -254,6 +302,8 @@ class StudentService {
 
   /**
    * Get student scholarships
+   * @param studentId ID of student to get scholarships for
+   * @returns Promise resolving to array of scholarships
    */
   async getStudentScholarships(studentId: string): Promise<unknown[]> {
     if (USE_MOCK_DATA) {

@@ -1,3 +1,28 @@
+/**
+ * AUTHENTICATION SERVICE MODULE
+ * 
+ * This file implements the API service for authentication-related operations.
+ * It provides functionality for user login, registration, session management,
+ * and token validation in the ERP system.
+ * 
+ * Key features:
+ * - User authentication with username/password validation
+ * - User registration (disabled in this mock version)
+ * - Session management through localStorage
+ * - Token validation for persistent login
+ * - Credential validation against predefined user accounts
+ * 
+ * Authentication flow:
+ * 1. User submits credentials via login form
+ * 2. Service validates credentials against predefined accounts in loginCredentials.ts
+ * 3. If valid, user data is stored in localStorage with a token
+ * 4. AuthContext uses validateToken to restore session on page reload
+ * 
+ * Mock implementation:
+ * This service simulates API calls for development and testing.
+ * In production, these methods would make actual HTTP requests to a backend API.
+ */
+
 import { LoginCredentials, SignupData, User } from '../../features/types';
 import { ApiError } from '../httpClient';
 import { APP_CONFIG, AUTH_CONFIG } from '../../config';
@@ -10,8 +35,11 @@ import { DEAN_LOGIN, HOD_LOGINS, SUPERVISOR_LOGINS, findLoginDetailsByUsername }
 class AuthService {
   /**
    * Authenticate a user with credentials
-   * @param credentials User login credentials
-   * @returns Authenticated user information
+   * Validates against predefined login details and creates user session
+   * 
+   * @param credentials User login credentials (username, password)
+   * @returns Promise resolving to authenticated user information
+   * @throws Error if credentials are invalid
    */
   async login(credentials: LoginCredentials): Promise<User> {
     try {
@@ -60,9 +88,12 @@ class AuthService {
   }
 
   /**
-   * Register a new user
+   * Register a new user (disabled in mock implementation)
+   * In this mock version, registration is disabled since we're using predefined accounts
+   * 
    * @param data User registration data
-   * @returns Newly created user information
+   * @returns Promise resolving to newly created user information
+   * @throws Error indicating registration is disabled
    */
   async signup(data: SignupData): Promise<User> {
     try {
@@ -85,6 +116,9 @@ class AuthService {
 
   /**
    * Log out the current user
+   * Removes the authentication token and user data from localStorage
+   * 
+   * @returns Promise resolving to void on success
    */
   async logout(): Promise<void> {
     try {
@@ -106,7 +140,10 @@ class AuthService {
 
   /**
    * Validate the current authentication token
-   * @returns User information if token is valid
+   * Retrieves and validates the stored user data
+   * 
+   * @returns Promise resolving to user information if token is valid
+   * @throws Error if token is invalid or expired
    */
   async validateToken(): Promise<User> {
     try {
@@ -128,6 +165,8 @@ class AuthService {
 
   /**
    * Check if user is currently authenticated
+   * Verifies if an authentication token exists in localStorage
+   * 
    * @returns Boolean indicating authentication status
    */
   isAuthenticated(): boolean {
@@ -136,6 +175,8 @@ class AuthService {
 
   /**
    * Get list of available users for the login page
+   * Provides usernames, roles and names from predefined users
+   * 
    * @returns Array of usernames and roles
    */
   getAvailableUsers(): { username: string, role: string, name: string }[] {

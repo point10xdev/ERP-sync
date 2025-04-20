@@ -1,3 +1,25 @@
+/**
+ * MOCK FACULTY DATA MODULE
+ * 
+ * This file provides a static dataset of faculty members for the ERP system.
+ * It contains structured data for faculty across different departments and roles.
+ * 
+ * Purpose:
+ * - Provides test data for development and testing without a backend
+ * - Establishes relationships between faculty and departments
+ * - Defines faculty with different roles (HOD, supervisor)
+ * - Used for filtering students by supervisor/department
+ * 
+ * Data structure:
+ * - Each faculty member has a unique ID 
+ * - Faculty members are linked to departments
+ * - Each faculty has a specific role (HOD or supervisor)
+ * - These IDs are referenced in the student data to establish relationships
+ * 
+ * This mock data synchronizes with the loginCredentials.ts file to maintain
+ * consistency between login profiles and faculty member information.
+ */
+
 import { Faculty } from '../types/schema';
 
 // Sample mock data for faculty members in various departments

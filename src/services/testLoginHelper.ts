@@ -1,3 +1,23 @@
+/**
+ * TEST LOGIN HELPER MODULE
+ * 
+ * This file provides utility functions for testing the application with different user roles.
+ * It allows easy login as various predefined users without going through the login form.
+ * 
+ * Key features:
+ * - Direct login as Dean, HOD, or Supervisor with a single function call
+ * - Role-specific login functions with department/course filtering
+ * - Automatic user setup with appropriate permissions and attributes
+ * 
+ * Usage flow:
+ * 1. Call a login function (e.g. loginAsDean())
+ * 2. The corresponding user is created and stored in localStorage
+ * 3. Page reloads to update authentication state
+ * 4. User is now logged in with the selected role and permissions
+ * 
+ * This module is primarily used for testing and development purposes.
+ */
+
 import { AUTH_CONFIG } from '../config';
 import {
     DEAN_LOGIN,
@@ -6,7 +26,11 @@ import {
     findLoginDetailsByUsername
 } from './loginCredentials';
 
-// Test login function to create a user with the specific username
+/**
+ * Creates a user with the provided username and logs them in
+ * 
+ * @param username - Username from the loginCredentials module
+ */
 export const loginWithUsername = (username: string): void => {
     const loginDetail = findLoginDetailsByUsername(username);
 
@@ -39,12 +63,20 @@ export const loginWithUsername = (username: string): void => {
     window.location.reload();
 };
 
-// Function to login as dean
+/**
+ * Logs in as the Dean user
+ * Dean has access to all students across all departments
+ */
 export const loginAsDean = (): void => {
     loginWithUsername(DEAN_LOGIN.username);
 };
 
-// Function to login as HOD with department
+/**
+ * Logs in as an HOD (Head of Department) with the specified department
+ * HOD can view and manage students within their department
+ * 
+ * @param department - The department to filter by (defaults to Computer Science)
+ */
 export const loginAsHOD = (department: string = 'Computer Science'): void => {
     const hodLogin = HOD_LOGINS.find(hod => hod.department === department);
 
@@ -58,7 +90,13 @@ export const loginAsHOD = (department: string = 'Computer Science'): void => {
     loginWithUsername(hodLogin.username);
 };
 
-// Function to login as supervisor with department and course
+/**
+ * Logs in as a Supervisor with the specified department and course
+ * Supervisor can only view and manage students assigned to them
+ * 
+ * @param department - The department to filter by (defaults to Computer Science)
+ * @param course - The course to filter by (defaults to B.Tech)
+ */
 export const loginAsSupervisor = (
     department: string = 'Computer Science',
     course: string = 'B.Tech'

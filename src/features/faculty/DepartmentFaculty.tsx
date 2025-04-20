@@ -1,8 +1,35 @@
+/**
+ * DEPARTMENT FACULTY COMPONENT
+ *
+ * This component displays a list of faculty members filtered by department.
+ * It is designed to be accessed by HOD users to view faculty in their department.
+ *
+ * Key features:
+ * - Automatically filters faculty by the HOD's department
+ * - Displays faculty details in a tabular format
+ * - Shows faculty images/avatars (or placeholder if none available)
+ * - Presents key information: name, email, phone, designation, role
+ *
+ * Data flow:
+ * 1. Component retrieves current user from AuthContext
+ * 2. Faculty data is filtered by the user's department
+ * 3. Filtered faculty list is rendered in a table
+ *
+ * This component is part of the department management functionality
+ * and is only accessible to users with HOD role.
+ */
+
 import React from "react";
 import { useAuth } from "../auth/AuthContext";
 import { Faculty } from "../types/schema";
 import { MOCK_FACULTY_DATA } from "./mockFacultyData";
 
+/**
+ * DepartmentFaculty Component
+ * Displays faculty members filtered by the HOD's department
+ *
+ * @returns JSX.Element - The rendered component
+ */
 const DepartmentFaculty: React.FC = () => {
   const { user } = useAuth();
 

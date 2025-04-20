@@ -1,3 +1,30 @@
+/**
+ * STUDENT LIST COMPONENT
+ *
+ * This component provides a comprehensive interface for viewing and managing students
+ * with role-based access control. It displays students in a filterable, searchable table
+ * and shows different students based on the user's role:
+ *
+ * - Dean: Can see all students in the college
+ * - HOD: Can see students in their specific department
+ * - Supervisor: Can see only students assigned to them
+ *
+ * Key features:
+ * - Role-based filtering of student data
+ * - Search functionality by name, enrollment, or email
+ * - Department filtering
+ * - Debug information with current user details
+ * - Test login buttons for different roles
+ * - Student management actions based on role
+ *
+ * The component integrates with several services:
+ * - AuthContext: For current user information
+ * - studentService: For retrieving student data
+ * - testLoginHelper: For testing with different user roles
+ *
+ * This is a central component in the student management functionality of the ERP system.
+ */
+
 import { useEffect, useState } from "react";
 import { useAuth } from "../auth/AuthContext";
 import { Student, SystemRole } from "../types/schema";
@@ -29,6 +56,12 @@ interface ExtendedUser {
   lastLogin?: Date;
 }
 
+/**
+ * StudentList Component
+ * Main component for viewing and managing students with role-based access
+ *
+ * @returns JSX.Element - The rendered component
+ */
 export const StudentList = () => {
   const { user } = useAuth();
   const extendedUser = user as ExtendedUser; // Cast user to our extended interface
@@ -45,6 +78,12 @@ export const StudentList = () => {
   console.log("Current user:", extendedUser);
   console.log("Available faculty data:", MOCK_FACULTY_DATA);
 
+  /**
+   * Fetch and filter students based on user role
+   * - Dean: All students
+   * - HOD: Department students
+   * - Supervisor: Assigned students only
+   */
   useEffect(() => {
     const fetchStudents = async () => {
       try {
@@ -135,7 +174,10 @@ export const StudentList = () => {
     fetchStudents();
   }, [extendedUser]);
 
-  // Filter students based on search term and department
+  /**
+   * Filter students based on search term and department
+   * Applies filters for both search text and selected department
+   */
   const filteredStudents = students.filter((student) => {
     const matchesSearch =
       student.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -149,7 +191,10 @@ export const StudentList = () => {
     return matchesSearch && matchesDepartment;
   });
 
-  // Handle user selection
+  /**
+   * Handle user selection from dropdown
+   * Updates selectedUsername state when a user is chosen
+   */
   const handleUserSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const username = e.target.value;
     if (username) {
@@ -157,7 +202,10 @@ export const StudentList = () => {
     }
   };
 
-  // Handle login with selected user
+  /**
+   * Handle login with the selected user
+   * Uses testLoginHelper to login as the selected user
+   */
   const handleLoginWithSelected = () => {
     if (selectedUsername) {
       loginWithUsername(selectedUsername);
