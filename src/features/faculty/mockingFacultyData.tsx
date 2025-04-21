@@ -23,12 +23,12 @@
 import { Faculty } from '../types/schema';
 
 // Sample mock data for faculty members in various departments
-export const MOCK_FACULTY_DATA: Faculty[] = [
+export const MOCKING_FACULTY_DATA: Faculty[] = [
     {
         id: 'f1',
         user: 'hod_cs',
-        name: 'marvin beak',
-        email: 'marvin beak@nitsrinagar.ac.in',
+        name: 'Dr. Aditya Sharma',
+        email: 'aditya.sharma@nitsrinagar.ac.in',
         phone_number: '9876543210',
         department: 'Computer Science',
         designation: 'Associate Professor',
@@ -38,8 +38,8 @@ export const MOCK_FACULTY_DATA: Faculty[] = [
     {
         id: 'f2',
         user: 'supervisor_cs_1',
-        name: 'Bombardiro Crocodilo',
-        email: 'Bombardiro Crocodilo@nitsrinagar.ac.in',
+        name: 'Dr. Priya Patel',
+        email: 'priya.patel@nitsrinagar.ac.in',
         phone_number: '9876543211',
         department: 'Computer Science',
         designation: 'Assistant Professor',
@@ -49,8 +49,8 @@ export const MOCK_FACULTY_DATA: Faculty[] = [
     {
         id: 'f3',
         user: 'supervisor_cs_2',
-        name: 'Tung Tung Tung Tung Tung Tung Tung Tung Tung Sahur',
-        email: 'Tung Tung Tung Tung Tung Tung Tung Tung Tung Sahur@nitsrinagar.ac.in',
+        name: 'Dr. Rajesh Kumar',
+        email: 'rajesh.kumar@nitsrinagar.ac.in',
         phone_number: '9876543212',
         department: 'Computer Science',
         designation: 'Professor',
@@ -60,8 +60,8 @@ export const MOCK_FACULTY_DATA: Faculty[] = [
     {
         id: 'f4',
         user: 'hod_ee',
-        name: 'Chimpanzini Bananini',
-        email: 'Chimpanzini Bananini@nitsrinagar.ac.in',
+        name: 'Dr. Sneha Gupta',
+        email: 'sneha.gupta@nitsrinagar.ac.in',
         phone_number: '9876543213',
         department: 'Electrical Engineering',
         designation: 'Associate Professor',
@@ -71,8 +71,8 @@ export const MOCK_FACULTY_DATA: Faculty[] = [
     {
         id: 'f5',
         user: 'supervisor_ee_1',
-        name: 'Trippi Troppi',
-        email: 'Trippi Troppi@nitsrinagar.ac.in',
+        name: 'Dr. Vikram Singh',
+        email: 'vikram.singh@nitsrinagar.ac.in',
         phone_number: '9876543214',
         department: 'Electrical Engineering',
         designation: 'Assistant Professor',
@@ -82,8 +82,8 @@ export const MOCK_FACULTY_DATA: Faculty[] = [
     {
         id: 'f6',
         user: 'hod_me',
-        name: 'Capuccino Assassino',
-        email: 'Capuccino Assassino@nitsrinagar.ac.in',
+        name: 'Dr. Aamir Khan',
+        email: 'aamir.khan@nitsrinagar.ac.in',
         phone_number: '9876543215',
         department: 'Mechanical Engineering',
         designation: 'Professor',
@@ -93,8 +93,8 @@ export const MOCK_FACULTY_DATA: Faculty[] = [
     {
         id: 'f7',
         user: 'supervisor_me_1',
-        name: 'Gyattt',
-        email: 'Gyattt@nitsrinagar.ac.in',
+        name: 'Dr. Neha Verma',
+        email: 'neha.verma@nitsrinagar.ac.in',
         phone_number: '9876543216',
         department: 'Mechanical Engineering',
         designation: 'Assistant Professor',
@@ -104,8 +104,8 @@ export const MOCK_FACULTY_DATA: Faculty[] = [
     {
         id: 'f8',
         user: 'hod_ce',
-        name: 'Skibidi',
-        email: 'skibidi@nitsrinagar.ac.in',
+        name: 'Dr. Sunil Mehta',
+        email: 'sunil.mehta@nitsrinagar.ac.in',
         phone_number: '9876543217',
         department: 'Civil Engineering',
         designation: 'Associate Professor',
@@ -115,8 +115,8 @@ export const MOCK_FACULTY_DATA: Faculty[] = [
     {
         id: 'f9',
         user: 'supervisor_ce_1',
-        name: 'Justin Cheddar',
-        email: 'Justin Cheddar@nitsrinagar.ac.in',
+        name: 'Dr. Divya Joshi',
+        email: 'divya.joshi@nitsrinagar.ac.in',
         phone_number: '9876543218',
         department: 'Civil Engineering',
         designation: 'Assistant Professor',
@@ -126,8 +126,8 @@ export const MOCK_FACULTY_DATA: Faculty[] = [
     {
         id: 'f10',
         user: 'hod_ch',
-        name: 'simon claw',
-        email: 'simonclaw@nitsrinagar.ac.in',
+        name: 'Dr. Anjali Desai',
+        email: 'anjali.desai@nitsrinagar.ac.in',
         phone_number: '9876543219',
         department: 'Chemical Engineering',
         designation: 'Professor',
@@ -137,7 +137,7 @@ export const MOCK_FACULTY_DATA: Faculty[] = [
     {
         id: 'f11',
         user: 'dean_user',
-        name: 'Tralalero Tralala',
+        name: 'Dr. Prakash Verma',
         email: 'dean@nitsrinagar.ac.in',
         phone_number: '9876543220',
         department: 'Administration',

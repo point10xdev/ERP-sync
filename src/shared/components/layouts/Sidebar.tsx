@@ -43,9 +43,10 @@ export const Sidebar = () => {
       user?.role === "supervisor" ||
       user?.role === "hod");
 
-  // Only dean and supervisor can access supervisor section
+  // Only supervisor can access supervisor section
   const canAccessSupervisor =
-    user?.role === "dean" || user?.role === "supervisor";
+  user?.role === "supervisor"; 
+    // || user?.role === "dean"  
 
   // Only HOD can access Department Faculty
   const isHOD = user?.role === "hod";

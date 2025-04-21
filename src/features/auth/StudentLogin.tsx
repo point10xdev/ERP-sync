@@ -157,10 +157,7 @@ export const StudentLogin = () => {
                   </span>
                 </li>
               ))}
-            </ul>
-            <p className="mt-2 text-gray-500">
-              Click on any username to use it. All passwords are "password123".
-            </p>
+            </ul> 
           </div>
         )}
       </div>
